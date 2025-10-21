@@ -182,41 +182,42 @@ export const getWebsiteUrl = (therapyType: string): string => {
 };
 
 export const navigateToUrl = (url: string): void => {
+	// Always open links in new tabs for better user experience
 	// Check if we're in an iframe
 	if (window.self !== window.top) {
 		// We're in an iframe - try to communicate with parent or use top-level navigation
 		try {
-			// Try to send message to parent window
+			// Try to send message to parent window with new tab preference
 			window.parent.postMessage({ 
 				type: 'NAVIGATE', 
-				url: url 
+				url: url,
+				target: '_blank' // Specify that we want new tab
 			}, '*');
 			
-			// Also try to navigate the top window as a fallback
+			// Also try to open in new tab as a fallback
 			// This will work if the parent doesn't handle the message
 			setTimeout(() => {
 				try {
-					window.top.location.href = url;
-				} catch (e) {
-					console.warn('Could not navigate top window:', e);
-					// Final fallback - try to open in new tab
 					window.open(url, '_blank');
+				} catch (e) {
+					console.warn('Could not open new tab:', e);
+					// Final fallback - try to navigate the top window
+					window.top.location.href = url;
 				}
 			}, 100);
 		} catch (e) {
 			console.warn('Could not send message to parent:', e);
-			// Fallback: try to navigate the top window
+			// Fallback: try to open in new tab
 			try {
-				window.top.location.href = url;
-			} catch (e2) {
-				console.warn('Could not navigate top window:', e2);
-				// Final fallback - try to open in new tab
 				window.open(url, '_blank');
+			} catch (e2) {
+				console.warn('Could not open new tab:', e2);
+				// Final fallback - try to navigate the top window
+				window.top.location.href = url;
 			}
 		}
 	} else {
-		// We're not in an iframe - use normal navigation
-		// Use _blank to open in new tab, or _self for same tab
+		// We're not in an iframe - always open in new tab
 		window.open(url, '_blank');
 	}
 }; 
