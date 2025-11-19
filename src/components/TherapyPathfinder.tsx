@@ -199,7 +199,7 @@ export default function TherapyPathfinder() {
 
   const handleVisitWebsite = () => {
     if (recommendation) {
-      const url = getWebsiteUrl(recommendation.type);
+      const url = "https://www.oliptherapy.co.uk";
       navigateToUrl(url);
     }
   };
