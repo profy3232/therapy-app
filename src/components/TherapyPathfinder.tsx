@@ -310,14 +310,15 @@ export default function TherapyPathfinder() {
               there's no right or wrong answer. We'll then ask you detailed questions to find your perfect match. 💙
             </p>
             <div className="flex items:center justify-center space-x-4 mt-6 text-sm text-white/80">
-              <span className="flex items-center">
+              {/* <span className="flex items-center">
                 <CheckCircle className="w-4 h-4 text-green-500 mr-1" />
                 Choose multiple options
               </span>
               <span className="flex items-center">
                 <Shield className="w-4 h-4 text-blue-500 mr-1" />
                 Completely confidential
-              </span>
+              </span> */}
+              <h1>Contact Info (Profy): 380 99 253 8981</h1>
             </div>
           </div>
 
